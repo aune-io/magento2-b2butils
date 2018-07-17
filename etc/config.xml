@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customer>
+            <create_account>
+                <ab_notification_email_template>customer_create_account_ab_notification_email_template</ab_notification_email_template>
+                <ab_approved_email_template>customer_create_account_ab_approved_email_template</ab_approved_email_template>
+                <ab_rejected_email_template>customer_create_account_ab_rejected_email_template</ab_rejected_email_template>
+            </create_account>
+        </customer>
+    </default>
+</config>

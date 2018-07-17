@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Hide price for non logged in users -->
+    <type name="Magento\Catalog\Pricing\Render\FinalPriceBox">
+        <plugin name="AuneB2bUtilsFinalPriceBox" type="Aune\B2bUtils\Plugin\Catalog\Pricing\Renderer\FinalPriceBox" />
+    </type>
+    
+    <!-- Prevent add to cart for non logged in users -->
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="AuneB2bUtilsQuote" type="Aune\B2bUtils\Plugin\Quote\Model\Quote"/>
+    </type>
+
+</config>

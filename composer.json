@@ -1,0 +1,32 @@
+{
+    "name": "aune-io/magento2-b2butils",
+    "description": "B2B Utilities for Magento 2",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "require": {
+        "php": "~7.0.0",
+        "magento/framework": "100.1.*",
+        "magento/module-customer": "100.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.0",
+        "squizlabs/php_codesniffer": "1.5.3",
+        "phpmd/phpmd": "@stable"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Aune\\B2bUtils\\": ""
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<!--@subject {{trans "New account %customer_email created" customer_email=$customer.email}} @-->
+<!--@vars {
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans "Customer %customer_name has just register with email %customer_email." customer_name=$customer.name customer_email=$customer.email}}</p>
+<p>{{trans "Login to the admin to approve or reject the account."}}</p>
+
+{{template config_path="design/email/footer_template"}}

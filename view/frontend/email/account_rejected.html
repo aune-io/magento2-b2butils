@@ -1,0 +1,11 @@
+<!--@subject {{trans "Your account at %store_name password has been rejected" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var customer.name":"Customer Name"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">{{trans "%name," name=$customer.name}}</p>
+<p>{{trans "We are sorry to inform you that your account at %store_name has been rejected." store_name=$store.getFrontendName()}}</p>
+<p>{{trans "For any information reply to this email or contact customer services."}}</p>
+
+{{template config_path="design/email/footer_template"}}

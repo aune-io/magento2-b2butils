@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="customer">
+            <group id="create_account">
+                <field id="ab_require_approval" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Require Shop Owner Approval</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ab_notification_email_recipients" translate="label comment" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Notification Recipients</label>
+                    <comment>Specify the email address (or addresses, separated by comma) to notify upon new registrations. Leave empty to disable.</comment>
+                    <depends>
+                        <field id="ab_require_approval">1</field>
+                    </depends>
+                </field>
+                <field id="ab_notification_email_template" translate="label comment" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Notification Template</label>
+                    <comment>This email will be sent to the shop owner on new registrations.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="ab_require_approval">1</field>
+                    </depends>
+                </field>
+                <field id="ab_approved_email_template" translate="label comment" type="select" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Registration Approved Template</label>
+                    <comment>This email will be sent to the customer after approval by store owner.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="ab_require_approval">1</field>
+                    </depends>
+                </field>
+                <field id="ab_rejected_email_template" translate="label comment" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Registration Rejected Template</label>
+                    <comment>This email will be sent to the customer after rejection by store owner.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="ab_require_approval">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="catalog">
+            <group id="price">
+                <field id="ab_reserved" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Reserved to registered users</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

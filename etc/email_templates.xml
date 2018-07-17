@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="customer_create_account_ab_notification_email_template" label="New Account Notification" file="new_account_notification.html" type="html" module="Aune_B2bUtils" area="adminhtml"/>
+    <template id="customer_create_account_ab_approved_email_template" label="Account Approved" file="account_approved.html" type="html" module="Aune_B2bUtils" area="frontend"/>
+    <template id="customer_create_account_ab_rejected_email_template" label="Account Rejected" file="account_rejected.html" type="html" module="Aune_B2bUtils" area="frontend"/>
+</config>

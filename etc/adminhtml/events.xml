@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_save_after_data_object">
+        <observer name="aune_b2butils_customer_save_after" instance="Aune\B2bUtils\Observer\CustomerSaveAfter" />
+    </event>
+</config>
