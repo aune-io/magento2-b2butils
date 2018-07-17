@@ -14,13 +14,17 @@ class CustomerRegisterSuccess implements ObserverInterface
     /**
      * @var HelperData
      */
-    protected $helperData;
+    private $helperData;
     
     /**
      * @var EmailNotification
      */
-    protected $emailNotification;
+    private $emailNotification;
 
+    /**
+     * @param HelperData $helperData
+     * @param EmailNotification $emailNotification
+     */
     public function __construct(
         HelperData $helperData,
         EmailNotification $emailNotification
@@ -41,6 +45,8 @@ class CustomerRegisterSuccess implements ObserverInterface
             return;
         }
         
-        $this->emailNotification->abNewCustomerNotification($customer);
+        $this->emailNotification->abNewCustomerNotification(
+            $observer->getCustomer()
+        );
     }
 }

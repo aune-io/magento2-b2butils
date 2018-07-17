@@ -17,7 +17,7 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
     /**#@+
      * Configuration paths for email templates and identities
      */
-    const XML_PATH_REGISTRATION_NOTIFICATION_RECIPIENT = 'customer/create_account/ab_notification_email_recipient';
+    const XML_PATH_REGISTRATION_NOTIFICATION_RECIPIENT = 'customer/create_account/ab_notification_email_recipients';
 
     const XML_PATH_REGISTRATION_NOTIFICATION_EMAIL_TEMPLATE = 'customer/create_account/ab_notification_email_template';
 
@@ -89,21 +89,20 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
             'store',
             $store
         );
-        
+
         if(!$emails) {
             return;
         }
         
         $recipients = array_map(function($email) {
             return ['email' => $email, 'name' => ''];
-        }, $emails);
+        }, explode(',', $emails));
 
         $this->sendEmailTemplate(
             $customer,
             self::XML_PATH_REGISTRATION_NOTIFICATION_EMAIL_TEMPLATE,
             ['customer' => $this->getFullCustomerObject($customer), 'store' => $store],
             $storeId,
-            'adminhtml',
             $recipients
         );
     }
@@ -159,7 +158,6 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
      * @param string $template configuration path of email template
      * @param array $templateParams
      * @param int|null $storeId
-     * @param string $area
      * @param array $recipients
      * 
      * @return void
@@ -169,7 +167,6 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
         $template,
         $templateParams = [],
         $storeId = null,
-        $area = 'frontend',
         $recipients = []
     ) {
         $sender = $this->scopeConfig->getValue(
@@ -187,7 +184,7 @@ class EmailNotification extends \Magento\Customer\Model\EmailNotification
         }
 
         $transportBuilder = $this->transportBuilder->setTemplateIdentifier($templateId)
-            ->setTemplateOptions(['area' => $area, 'store' => $storeId])
+            ->setTemplateOptions(['area' => 'frontend', 'store' => $storeId])
             ->setTemplateVars($templateParams)
             ->setFrom($sender);
 

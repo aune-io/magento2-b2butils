@@ -2,12 +2,10 @@
 
 namespace Aune\B2bUtils\Setup;
 
-use Magento\Eav\Model\Config;
-use Magento\Eav\Setup\EavSetup;
-use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Customer\Setup\CustomerSetupFactory;
 use Aune\B2bUtils\Model\Entity\Attribute\Source\ApprovalStatus;
 
 /**
@@ -16,37 +14,29 @@ use Aune\B2bUtils\Model\Entity\Attribute\Source\ApprovalStatus;
 class InstallData implements InstallDataInterface
 {
     /**
-     * @var Config
+     * @var CustomerSetupFactory
      */
-    private $eavConfig;
-    
-    /**
-     * @var EavSetupFactory
-     */
-    private $eavSetupFactory;
+    private $customerSetupFactory;
  
     /**
-     * @param EavSetupFactory $eavSetupFactory
+     * @param CustomerSetupFactory $customerSetupFactory
      */
     public function __construct(
-        Config $eavConfig,
-        EavSetupFactory $eavSetupFactory
+        CustomerSetupFactory $customerSetupFactory
     ) {
-        $this->eavConfig = $eavConfig;
-        $this->eavSetupFactory = $eavSetupFactory;
+        $this->customerSetupFactory = $customerSetupFactory;
     }
     
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
-        /** @var EavSetup $eavSetup */
-        $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+        $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
  
         // Add approval status attribute
-        $eavSetup->addAttribute(
+        $customerSetup->addAttribute(
             \Magento\Customer\Model\Customer::ENTITY,
             ApprovalStatus::ATTRIBUTE_CODE,
             [
@@ -59,11 +49,12 @@ class InstallData implements InstallDataInterface
                 'system' => false,
                 'position' => 120,
                 'sort_order' => 120,
+                'adminhtml_only' => 1,
             ]
         );
         
         // Assign attribute to forms
-		$attribute = $this->eavConfig->getAttribute(
+		$attribute = $customerSetup->getEavConfig()->getAttribute(
 		    \Magento\Customer\Model\Customer::ENTITY,
 		    ApprovalStatus::ATTRIBUTE_CODE
 	    );
@@ -73,7 +64,7 @@ class InstallData implements InstallDataInterface
 		);
         
         // Add approval email attribute
-        $eavSetup->addAttribute(
+        $customerSetup->addAttribute(
             \Magento\Customer\Model\Customer::ENTITY,
             ApprovalStatus::ATTRIBUTE_CODE_EMAIL,
             [
@@ -86,6 +77,7 @@ class InstallData implements InstallDataInterface
                 'system' => false,
                 'position' => 125,
                 'sort_order' => 125,
+                'adminhtml_only' => 1,
             ]
         );
 		

@@ -11,15 +11,16 @@ class Quote
     /**
      * @var Session
      */
-    protected $session;
+    private $session;
     
     /**
      * @var HelperData
      */
-    protected $helperData;
+    private $helperData;
 
     /**
      * @param Session $session
+     * @param HelperData $helperData
      */
     public function __construct(
         Session $session,
@@ -37,6 +38,8 @@ class Quote
      * @param $request
      * @param $processMode
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public function beforeAddProduct(
         \Magento\Quote\Model\Quote $subject,
@@ -44,8 +47,10 @@ class Quote
         $request = null,
         $processMode = \Magento\Catalog\Model\Product\Type\AbstractType::PROCESS_MODE_FULL
     ) {
-        if($this->helperData->isCatalogPriceReserved() && !$this->session->isLoggedIn()) {
-            throw new LocalizedException(__('Guest users are not allowed to add products to cart, please login or register to proceed.'));
+        if(!$this->helperData->isCatalogPriceReserved() || $this->session->isLoggedIn()) {
+            return [$product, $request, $processMode];
         }
+        
+        throw new LocalizedException(__('Guest users are not allowed to add products to cart, please login or register to proceed.'));
     }
 }

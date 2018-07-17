@@ -27,7 +27,6 @@ class Uninstall implements UninstallInterface
     public function uninstall(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
- 
         $eavSetup = $this->eavSetupFactory->create();
         
         $eavSetup->removeAttribute(

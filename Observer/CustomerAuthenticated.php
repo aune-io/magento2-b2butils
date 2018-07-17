@@ -13,8 +13,11 @@ class CustomerAuthenticated implements ObserverInterface
     /**
      * @var HelperData
      */
-    protected $helperData;
+    private $helperData;
 
+    /**
+     * @param HelperData $helperData
+     */
     public function __construct(HelperData $helperData)
     {
         $this->helperData = $helperData;
@@ -28,15 +31,12 @@ class CustomerAuthenticated implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        if(!$this->helperData->isCustomerApprovalRequired()) {
+        $customer = $observer->getEvent()->getModel();
+        if(!$this->helperData->isCustomerApprovalRequired() ||
+            $this->helperData->isCustomerApproved($customer)) {
             return $this;
         }
         
-        $customer = $observer->getEvent()->getModel();
-        if($customer->getCustomAttribute(ApprovalStatus::ATTRIBUTE_CODE) == ApprovalStatus::STATUS_APPROVED) {
-            return $this;
-        }
-
         throw new LocalizedException(
             __('Your account is not approved for login.')
         );

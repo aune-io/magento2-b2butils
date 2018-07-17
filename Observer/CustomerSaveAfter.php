@@ -15,18 +15,23 @@ class CustomerSaveAfter implements ObserverInterface
     /**
      * @var HelperData
      */
-    protected $helperData;
+    private $helperData;
     
     /**
      * @var EmailNotification
      */
-    protected $emailNotification;
+    private $emailNotification;
     
     /**
      * @var CustomerResource
      */
-    protected $customerResource;
+    private $customerResource;
 
+    /**
+     * @param HelperData $helperData
+     * @param EmailNotification $emailNotification
+     * @param CustomerResource $customerResource
+     */
     public function __construct(
         HelperData $helperData,
         EmailNotification $emailNotification,

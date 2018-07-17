@@ -3,6 +3,7 @@
 namespace Aune\B2bUtils\Helper;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Aune\B2bUtils\Model\Entity\Attribute\Source\ApprovalStatus;
 
 class Data
 {
@@ -47,5 +48,23 @@ class Data
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
+    }
+    
+    /**
+     * Return whether the customer has been approved or not
+     */
+    public function isCustomerApproved($customer)
+    {
+        if ($customer instanceof \Magento\Customer\Api\Data\CustomerInterface) {
+            $attribute = $customer->getCustomAttribute(ApprovalStatus::ATTRIBUTE_CODE);
+            if ($attribute instanceof \Magento\Framework\Api\AttributeValue) {
+                return $attribute->getValue() == ApprovalStatus::STATUS_APPROVED;
+            }
+            return false;
+        } elseif ($customer instanceof \Magento\Customer\Model\Customer) {
+            return $customer->getData(ApprovalStatus::ATTRIBUTE_CODE) == ApprovalStatus::STATUS_APPROVED;
+        }
+        
+        return false;
     }
 }

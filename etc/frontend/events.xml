@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="customer_customer_authenticated">
-        <observer name="aune_b2butils_customer_authenticated" instance="Aune\B2bUtils\Observer\CustomerAuthenticated" />
+        <observer name="AuneB2bUtils" instance="Aune\B2bUtils\Observer\CustomerAuthenticated" />
     </event>
     <event name="customer_register_success">
-        <observer name="aune_b2butils_customer_register_success" instance="Aune\B2bUtils\Observer\CustomerRegisterSuccess" />
+        <observer name="AuneB2bUtils" instance="Aune\B2bUtils\Observer\CustomerRegisterSuccess" />
     </event>
 </config>

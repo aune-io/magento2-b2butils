@@ -10,15 +10,16 @@ class FinalPriceBox
     /**
      * @var Session
      */
-    protected $session;
+    private $session;
     
     /**
      * @var HelperData
      */
-    protected $helperData;
+    private $helperData;
 
     /**
      * @param Session $session
+     * @param HelperData $helperData
      */
     public function __construct(
         Session $session,
@@ -30,15 +31,17 @@ class FinalPriceBox
     
     /**
      * Do not print the block if customer is not logged in and catalog price is reserved
+     * 
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundToHtml(
         \Magento\Catalog\Pricing\Render\FinalPriceBox $subject,
         \Closure $proceed
     ) {
-        if($this->helperData->isCatalogPriceReserved() && !$this->session->isLoggedIn()) {
-            return '';
+        if(!$this->helperData->isCatalogPriceReserved() || $this->session->isLoggedIn()) {
+            return $proceed();
         }
 
-        return $proceed();
+        return '';
     }
 }

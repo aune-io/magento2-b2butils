@@ -4,6 +4,7 @@ language: php
 
 php:
     - 7.0
+    - 7.1
 
 install:
     - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > ~/.composer/auth.json
@@ -11,12 +12,12 @@ install:
     - composer create-project --repository=https://repo.magento.com magento/marketplace-eqp marketplace-eqp
 
 script:
-    - php marketplace-eqp/vendor/bin/phpcs Block/ Gateway/ Model/ Observer/ Test/ view/  --standard=MEQP2 --severity=10
-    - php vendor/bin/phpmd Block/,Gateway/,Model/,Observer/,Test/,view/ text cleancode,codesize,controversial,design,naming,unusedcode --ignore-violations-on-exit
+    - php marketplace-eqp/vendor/bin/phpcs Model/ Observer/ Plugin/ Setup/ Test/ view/  --standard=MEQP2 --severity=10
+    - php vendor/bin/phpmd Model/,Observer/,Plugin/,Test/,view/ text cleancode,codesize,controversial,design,naming,unusedcode --ignore-violations-on-exit
     - php vendor/phpunit/phpunit/phpunit --coverage-clover Test/Unit/logs/clover.xml Test
 
 after_script:
-    - php vendor/bin/coveralls -v
+    - php vendor/bin/php-coveralls -v
 
 env:
     global:
